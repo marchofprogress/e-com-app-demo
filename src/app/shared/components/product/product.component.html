@@ -1,0 +1,55 @@
+<article class="bg-white rounded-lg p-4 shadow flex flex-col items-center">
+  <div
+    class="w-full max-w-xs aspect-[4/3] flex items-center justify-center rounded overflow-hidden"
+  >
+    <img
+      [src]="product.img"
+      [alt]="product.name"
+      class="w-full h-full object-contain"
+    />
+  </div>
+  <h2 class="text-lg font-semibold mt-2 mb-1">{{ product.name }}</h2>
+
+  <div class="mt-2 flex flex-col items-start w-full max-w-xs">
+    <span class="text-sm text-gray-600"
+      >Minimum order:
+      <span class="font-medium">{{ product.minOrderAmount }}</span></span
+    >
+    <span class="text-sm text-gray-600"
+      >Available:
+      <span class="font-medium">{{ product.availableAmount }}</span></span
+    >
+    <span class="text-sm text-gray-600"
+      >Price per item:
+      <span class="font-medium">{{
+        product.price | currency : "EUR"
+      }}</span></span
+    >
+  </div>
+  <div class="mt-2 w-full max-w-xs flex items-center space-x-2">
+    <label for="amount-{{ product.id }}" class="text-sm text-gray-700"
+      >Amount:</label
+    >
+    <input
+      id="amount-{{ product.id }}"
+      type="number"
+      [min]="currentMinOrderAmount"
+      [max]="product.availableAmount"
+      [(ngModel)]="addedProductAmount"
+      class="border rounded px-2 py-1 w-20"
+    />
+  </div>
+  <div class="mt-2 w-full max-w-xs flex items-center justify-between">
+    <span class="font-bold text-lg text-gray-800 bg-gray-100 px-3 py-1 rounded"
+      >Order total:
+      {{ product.price * addedProductAmount | currency : "EUR" }}</span
+    >
+    <button
+      appButton
+      class="bg-blue-500 hover:bg-blue-600"
+      (click)="addProduct()"
+    >
+      Add
+    </button>
+  </div>
+</article>
