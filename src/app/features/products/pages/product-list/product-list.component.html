@@ -1,21 +1,25 @@
 <section class="product-list">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    @for (product of products(); track product.id) {
-      @defer (on viewport) {
-        <app-product
-          [product]="product"
-          [currentMinOrderAmount]="product.currentMinOrderAmount"
-          (addedProductEmitter)="addToCart($event)"
-        ></app-product>
-      } @placeholder {
-        <div class="w-full h-[466px] bg-gray-100 flex items-center justify-center text-gray-400">Item Placholder</div>
+  @if (products().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (product of products(); track product.id) {
+        @defer (on viewport) {
+          <app-product
+            [product]="product"
+            [currentMinOrderAmount]="product.currentMinOrderAmount"
+            (addedProductEmitter)="addToCart($event)"
+          ></app-product>
+        } @placeholder {
+          <div class="w-full h-[466px] bg-gray-100 flex items-center justify-center text-gray-400">Item Placeholder</div>
+        }
       }
-    }
-    @if (isLoading()) {
-      <div class="text-center">Request Loading</div>
-    }
-    @if (hasError()) {
-      <div class="text-center">Request Error</div>
-    }
-  </div>
+    </div>
+  } @else if(!isLoading() && !hasError()) {
+    <div class="text-center">No products available</div>
+  }
+  @if (isLoading()) {
+    <div class="text-center">Request Loading</div>
+  }
+  @if (hasError()) {
+    <div class="text-center">Request Error</div>
+  }
 </section>
