@@ -1,5 +1,5 @@
-import { Product } from "./product.model";
+import { ProductResponse } from './product-response.model';
 
-export interface AddedProduct extends Product {
+export interface AddedProduct extends ProductResponse {
   amount: number;
 }

@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AddedProduct } from '../../../features/models/added-product.model';
-import { Product } from '../../../features/models/product.model';
+import { ProductUI } from '../../../features/models/product-ui.model';
 import { ButtonDirective } from '../../button.directive';
 
 @Component({
@@ -25,12 +25,14 @@ import { ButtonDirective } from '../../button.directive';
   standalone: true,
 })
 export class ProductComponent implements OnInit {
-  @Input({ required: true }) product!: Product;
+  @Input({ required: true }) product!: ProductUI;
   @Input() currentMinOrderAmount = 1;
   @Output() addedProductEmitter = new EventEmitter<AddedProduct>();
 
   addedProductAmount: WritableSignal<number> = signal<number>(0);
-  total: Signal<number> = computed(() => this.product.price * this.addedProductAmount());
+  total: Signal<number> = computed(
+    () => this.product.price * this.addedProductAmount()
+  );
 
   ngOnInit() {
     this.addedProductAmount.set(this.currentMinOrderAmount);
@@ -40,7 +42,7 @@ export class ProductComponent implements OnInit {
     this.addedProductAmount.set(newAmount);
   }
 
-  addProduct():void {
+  addProduct(): void {
     this.addedProductEmitter.emit({
       ...this.product,
       amount: this.addedProductAmount(),

@@ -1,9 +1,8 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AddedProduct } from '../../models/added-product.model';
-import { Product } from '../../models/product.model';
+import { ProductResponse } from '../../models/product-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,37 +12,34 @@ export class ProductsService {
   private readonly productUrl = `${this.apiBaseUrl}/wis/clicktime/v1/query?url=https%3a%2f%2f63c10327716562671870f959.mockapi.io%2fproducts&umid=edab3d48-7a50-4ca6-b6c9-9362af456f60&auth=3bd1ed0ea25e030aebac2180cda48b2d7a1ccc30-bf53e959aa381ef3b79ace2237ee4d9545bb0e5b`;
   private readonly httpClient = inject(HttpClient);
 
-  private readonly _productsInCart = signal<
-    Record<string, AddedProduct>
-  >({});
+  private readonly _productsInCart = signal<Record<string, AddedProduct>>({});
 
   public get productsInCart(): Signal<Record<string, AddedProduct>> {
     return this._productsInCart.asReadonly();
   }
 
-  public cartTotal: Signal<number> = computed(()=> {
+  public cartTotal: Signal<number> = computed(() => {
     let total = 0;
     for (const [key, value] of Object.entries(this.productsInCart())) {
       total += value.amount * value.price;
     }
     return total;
-  })
+  });
 
-  private readonly productResource = httpResource<Product[]>({
-    url: this.productUrl,
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
+  private readonly productResource = httpResource<ProductResponse[]>(
+    {
+      url: this.productUrl,
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
     },
-  }, {defaultValue: []})
+    { defaultValue: [] }
+  );
 
-  products = this.productResource.value.asReadonly();
+  readonly products = this.productResource.value.asReadonly();
   isLoading = this.productResource.isLoading;
   hasError = this.productResource.error;
-
-  getProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.productUrl);
-  }
 
   addProductToCart(addedProduct: AddedProduct): void {
     const currentCart = this.productsInCart();
