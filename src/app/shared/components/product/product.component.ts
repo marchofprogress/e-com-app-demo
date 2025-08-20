@@ -2,10 +2,14 @@ import { CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  Signal,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AddedProduct } from '../../../features/models/added-product.model';
@@ -22,19 +26,24 @@ import { ButtonDirective } from '../../button.directive';
 })
 export class ProductComponent implements OnInit {
   @Input({ required: true }) product!: Product;
-  @Input() currentMinOrderAmount: number = 1;
+  @Input() currentMinOrderAmount = 1;
   @Output() addedProductEmitter = new EventEmitter<AddedProduct>();
 
-  addedProductAmount: number = 0;
+  addedProductAmount: WritableSignal<number> = signal<number>(0);
+  total: Signal<number> = computed(() => this.product.price * this.addedProductAmount());
 
   ngOnInit() {
-    this.addedProductAmount = this.currentMinOrderAmount;
+    this.addedProductAmount.set(this.currentMinOrderAmount);
   }
 
-  addProduct() {
+  onAmountChange(newAmount: number) {
+    this.addedProductAmount.set(newAmount);
+  }
+
+  addProduct():void {
     this.addedProductEmitter.emit({
       ...this.product,
-      amount: this.addedProductAmount,
+      amount: this.addedProductAmount(),
     });
   }
 }

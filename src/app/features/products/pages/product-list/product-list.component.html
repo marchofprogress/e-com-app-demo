@@ -1,12 +1,12 @@
 <section class="product-list">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <ng-container *ngIf="products | async as products">
       <app-product
-        *ngFor="let product of products; trackBy: trackByProductId"
+        *ngFor="let product of products(); trackBy: trackByProductId"
         [product]="product"
         [currentMinOrderAmount]="product.currentMinOrderAmount"
         (addedProductEmitter)="addToCart($event)"
       ></app-product>
-    </ng-container>
+      <div *ngIf="isLoading()" >Loading</div>
+      <div *ngIf="hasError()" >Error</div>
   </div>
 </section>

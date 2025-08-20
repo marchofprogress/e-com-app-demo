@@ -16,7 +16,7 @@
     >
       <span>Cart</span>
       <span class="bg-gray-100 text-blue-600 font-semibold px-2 py-1 rounded">{{
-        cartTotal$ | async | currency : "EUR"
+        cartTotal() | currency : "EUR"
       }}</span>
     </button>
   </div>
