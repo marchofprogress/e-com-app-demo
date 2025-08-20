@@ -2,6 +2,10 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 
+The app was created for demo purpose. Simple e-com app with a list of products and a cart page. 
+
+I used some modern angular features like new control flow syintax, deferrable states, standalone components, httpResourceApi, signals. Added some jasmine tests to test functions. Since it is a small app I haven't used ngrx or other state management. I used tailwind for styling and added eslint rules to ensure quality.
+
 ## Development server
 
 To start a local development server, run:
