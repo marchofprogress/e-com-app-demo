@@ -44,15 +44,20 @@ export class ProductsService {
   addProductToCart(addedProduct: AddedProduct): void {
     const currentCart = this.productsInCart();
 
-    const amountAlreadyInCart =
-      (currentCart[addedProduct.id]?.amount || 0) + addedProduct.amount;
+    const amountAlreadyInCart = currentCart[addedProduct.id]?.amount || 0;
 
-    if (amountAlreadyInCart < addedProduct.minOrderAmount) {
+    if (
+      amountAlreadyInCart + addedProduct.amount <
+      addedProduct.minOrderAmount
+    ) {
       window.alert('Cannot add less than minimum order amount');
       return;
     }
 
-    if (addedProduct.amount > addedProduct.availableAmount) {
+    if (
+      amountAlreadyInCart + addedProduct.amount >
+      addedProduct.availableAmount
+    ) {
       window.alert('Cannot add more than available amount');
       return;
     }
