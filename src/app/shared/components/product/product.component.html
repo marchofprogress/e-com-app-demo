@@ -1,6 +1,12 @@
 <article class="bg-white rounded-lg p-4 shadow flex flex-col items-center">
   <div class="w-full max-w-xs aspect-[4/3] flex items-center justify-center rounded overflow-hidden">
-    <img [src]="product.img" [alt]="product.name" class="w-full h-full object-contain" />
+    @if(!hasImageError) {
+    <img [src]="product.img" [alt]="product.name" class="w-full h-full object-contain" (error)="hasImageError = true" />
+    } @else {
+    <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600 text-center">
+      <span>Image could not be loaded</span>
+    </div>
+    }
   </div>
   <h2 class="text-lg font-semibold mt-2 mb-1">{{ product.name }}</h2>
 

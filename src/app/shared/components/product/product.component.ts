@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +18,7 @@ import { ButtonDirective } from '../../button.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [FormsModule, CurrencyPipe, ButtonDirective],
+  imports: [FormsModule, CurrencyPipe, ButtonDirective, CommonModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +33,7 @@ export class ProductComponent implements OnInit {
   total: Signal<number> = computed(
     () => this.product.price * this.addedProductAmount()
   );
+  hasImageError = false;
 
   ngOnInit() {
     this.addedProductAmount.set(this.currentMinOrderAmount);
