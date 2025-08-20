@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +13,7 @@ import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-product-list',
-  imports: [NgFor, NgIf, ProductComponent],
+  imports: [ProductComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,9 +41,5 @@ export class ProductListComponent {
 
   addToCart(product: AddedProduct): void {
     this.productsService.addProductToCart(product);
-  }
-
-  trackByProductId(index: number, item: ProductUI): string {
-    return item.id;
   }
 }
