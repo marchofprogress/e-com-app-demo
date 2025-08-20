@@ -25,14 +25,15 @@
     </div>
     }
   </div>
-  <div class="mt-6 flex items-center flex-row justify-between gap-4">
+  <div class="mt-6 flex items-center flex-row justify-between gap-4 flex-wrap">
     <div>
       <span class="text-xl font-bold">Total: </span>
       <span class="text-xl font-bold text-blue-600">{{
         cartTotal() | currency : "EUR"
         }}</span>
     </div>
-    <button appButton class="px-6 py-2 bg-green-500 hover:bg-green-600" (click)="checkout()">
+    <button appButton class="px-6 py-2 bg-green-500 hover:bg-green-600 w-full sm:w-auto mt-4 sm:mt-0"
+      (click)="checkout()">
       Checkout
     </button>
   </div>

@@ -29,24 +29,24 @@ export class ProductComponent implements OnInit {
   @Input() currentMinOrderAmount = 1;
   @Output() addedProductEmitter = new EventEmitter<AddedProduct>();
 
-  addedProductAmount: WritableSignal<number> = signal<number>(0);
+  orderAmount: WritableSignal<number> = signal<number>(0);
   total: Signal<number> = computed(
-    () => this.product.price * this.addedProductAmount()
+    () => this.product.price * this.orderAmount()
   );
   hasImageError = false;
 
-  ngOnInit() {
-    this.addedProductAmount.set(this.currentMinOrderAmount);
+  ngOnInit(): void {
+    this.orderAmount.set(this.currentMinOrderAmount);
   }
 
-  onAmountChange(newAmount: number) {
-    this.addedProductAmount.set(newAmount);
+  onAmountChange(newAmount: number): void {
+    this.orderAmount.set(newAmount);
   }
 
   addProduct(): void {
     this.addedProductEmitter.emit({
       ...this.product,
-      amount: this.addedProductAmount(),
+      amount: this.orderAmount(),
     });
   }
 }

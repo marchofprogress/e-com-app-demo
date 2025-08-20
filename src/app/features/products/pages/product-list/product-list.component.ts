@@ -25,7 +25,7 @@ export class ProductListComponent {
   isLoading: Signal<boolean> = this.productsService.isLoading;
   hasError: Signal<unknown> = this.productsService.hasError;
 
-  products: Signal<ProductUI[]> = computed(() => {
+  productsVM: Signal<ProductUI[]> = computed(() => {
     const products = this.productsService.products();
     const productsInCart = this.productsService.productsInCart();
     return products.map((product: ProductResponse) => ({

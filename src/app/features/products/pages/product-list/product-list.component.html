@@ -1,7 +1,7 @@
 <section class="product-list">
-  @if (products().length > 0) {
+  @if (productsVM().length > 0) {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      @for (product of products(); track product.id) {
+      @for (product of productsVM(); track product.id) {
         @defer (on viewport) {
           <app-product
             [product]="product"
