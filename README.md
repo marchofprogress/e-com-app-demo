@@ -6,6 +6,15 @@ The app was created for demo purpose. Simple e-com app with a list of products a
 
 I used some modern angular features like new control flow syintax, deferrable states, standalone components, httpResourceApi, signals. Added some jasmine tests to test functions. Since it is a small app I haven't used ngrx or other state management. I used tailwind for styling and added eslint rules to ensure quality.
 
+npm and node.js is required to run the app locally
+to install angular and dependencies run:
+
+```bash
+npm install -g @angular/cli
+npm i
+```
+
+
 ## Development server
 
 To start a local development server, run:
