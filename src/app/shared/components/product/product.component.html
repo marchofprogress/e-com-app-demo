@@ -27,10 +27,9 @@
     <input id="amount-{{ product.id }}" type="number" [min]="currentMinOrderAmount" [max]="product.availableAmount"
       [(ngModel)]="orderAmount" class="border rounded px-2 py-1 w-20" />
   </div>
-  <div class="mt-2 w-full max-w-xs flex items-center justify-between">
-    <span class="font-bold text-lg text-gray-800 bg-gray-100 px-3 py-1 rounded">Order total: {{ total() | currency :
-      "EUR" }}</span>
-    <button appButton class="bg-blue-500 hover:bg-blue-600" (click)="addProduct()">
+  <div class="mt-2 w-full max-w-xs flex flex-col sm:flex-row items-center justify-between gap-2">
+    <span class="font-bold text-lg text-gray-800 bg-gray-100 px-3 py-1 rounded">Order total: {{ total() | currency : "EUR" }}</span>
+    <button appButton class="bg-blue-500 hover:bg-blue-600 w-full sm:w-auto" (click)="addProduct()">
       Add
     </button>
   </div>
