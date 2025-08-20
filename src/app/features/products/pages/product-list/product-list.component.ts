@@ -44,7 +44,7 @@ export class ProductListComponent {
     this.productsService.addProductToCart(product);
   }
 
-  trackByProductId(index: number, item: any): string {
+  trackByProductId(index: number, item: ProductUI): string {
     return item.id;
   }
 }
